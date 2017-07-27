@@ -16,7 +16,7 @@ var classe2 = [
 { nom: 'Jacques', age: 35, sexe: 'M' },
 { nom: 'Eric', age: 47, sexe: 'M' }
 ];
-
+console.log(typeof classe1[2].age);
 function nombreHomme(classe){
 	var nbHomme = 0;
 	for (var i = 0; i < classe.length; i++){
@@ -66,29 +66,63 @@ console.log(
 
 //4eme partie
 
-function moyenneAge(classe,sexe){
-	nbFemme = classe.length - nombreHomme(classe);
-	var moyenne = 0;
+function moyenneAge(classe,sexe = "T"){
+	var nbFemme = classe.length - nombreHomme(classe);
 	var ageTotal = 0;
 	var ageTotalM = 0;
 	var ageTotalF = 0;
-	if(sexe === "M"){
-		ageTotalM = ageTotal/nombreHomme(classe);
-		if(sexe === "F"){
-			ageTotalF = ageTotal/nbFemme;
-			if(sexe === "T"){
-				moyenne = ageTotal/classe.length;
-			};
-		};
-	};
-		for(var i = 0; i < classe.length; i++){
+	
+	//Age de tout le monde
+		if(sexe === "T"){
+			for(var i = 0; i < classe.length; i++){
 			ageTotal = ageTotal + classe[i].age;
+			};
+		var moyenne = ageTotal/classe.length;
+		return moyenne;
+		};
+
+		//Age des hommes
+		if(sexe === "M"){
+			for(var i = 0; i < classe.length; i++){
+				if(classe[i].sexe === "M"){
+				ageTotalM = ageTotalM + classe[i].age;
+				};
+			};
+		var moyenneM = ageTotalM/nombreHomme(classe);
+		return moyenneM;
+		};
+
+		//Age des femmes
+		if(sexe === "F"){
+			for(var i = 0; i < classe.length; i++){
+				if(classe[i].sexe === "F"){
+				ageTotalF = ageTotalF + classe[i].age;
+				};
+			};
+		var moyenneF = ageTotalF/nbFemme;
+		return moyenneF;
+		};
+
+		if(sexe !== "M" || sexe !== "F" || sexe !== "T"){
+			alert("Error69 : Sex not found.");
 		}
-		return ageTotal;
 };
 console.log("La moyenne d'age des hommes dans classe1 est de " + moyenneAge(classe1, "M"));
 console.log("La moyenne d'age des femmes dans classe1 est de " + moyenneAge(classe1, "F"));
-console.log("La moyenne d'age totale dans classe2 est de " + moyenneAge(classe1, "T"));
+console.log("La moyenne d'age totale dans classe1 est de " + moyenneAge(classe1));
+
 console.log("La moyenne d'age des hommes dans classe2 est de " + moyenneAge(classe2, "M"));
 console.log("La moyenne d'age des femmes dans classe2 est de " + moyenneAge(classe2, "F"));
-console.log("La moyenne d'age totale dans classe2 est de " + moyenneAge(classe2, "T"));
+console.log("La moyenne d'age totale dans classe2 est de " + moyenneAge(classe2));
+
+
+function plusVieux(classe){
+	var ageMax = [];
+		for(i = 0; i < classe.length; i++){
+			ageMax.push(classe[i].age);
+		};
+
+  return Math.max(...ageMax);
+};
+console.log("Le personne la plus agée de classe1 a " + plusVieux(classe1) + " ans.");
+console.log("Le personne la plus agée de classe2 a " + plusVieux(classe2) + " ans.");
